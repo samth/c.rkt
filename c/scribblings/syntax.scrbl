@@ -4,17 +4,15 @@
          scribble/eval
          scribble/basic
          scribblings/icons
-         planet/scribble
          racket/list
-         "abnf.rkt"
+         scribble/abnf
          "utils.rkt"]
 
 @require[(for-label racket/base
                     racket/contract
                     racket/struct-info
                     parser-tools/lex
-                    (this-package-in ast)
-                    (this-package-in parse))]
+		    c/ast c/parse)]
 
 @title[#:tag "syntax"]{The C Language}
 
@@ -287,7 +285,7 @@ ambiguity.
 The abstract syntax of C is represented as structs. All of the structure definitions
 are provided by the package
 
-@defmodule/this-package[ast]
+@defmodule[c/ast]
 
 All of the structs defined in this library are
 @tech[#:doc '(lib "scribblings/guide/guide.scrbl")]{prefab}

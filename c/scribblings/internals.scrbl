@@ -3,18 +3,17 @@
 @require[scribble/manual
          scribble/eval
          scribble/basic
-         planet/scribble
-         "abnf.rkt"
+         scribble/abnf
          "utils.rkt"]
 
 @require[(for-label racket/base
                     racket/contract
                     parser-tools/lex
                     parser-tools/yacc
-                    (except-in (this-package-in ast) declarator-context? type-context?)
-                    (this-package-in private/syntactic-context)
-                    (this-package-in private/lexer)
-                    (this-package-in private/parser))]
+                    (except-in c/ast declarator-context? type-context?)
+                    c/private/syntactic-context
+                    c/private/lexer
+                    c/private/parser)]
 
 @title[#:tag "internals"]{Internals}
 
@@ -69,7 +68,7 @@ A @deftech{declarator terminator} is a token of @scheme[token-name] @scheme['COM
 A @deftech{declarator id} is the value of the @attr-label[DeclaratorId] attribute of a @nonterm{Declarator} node,
 using the following attribution rules for the language grammar:
 
-@ABNF[
+@BNF[
 (list @nonterm[#:sub @BNF-var{X}]{Declarator}
       (list @BNF-seq[@optional[@nonterm{Pointer}] @nonterm[#:sub @BNF-var{X}]{DirectDeclarator}]
             @attr-decl[0 DeclaratorId @attr-sel[1 DeclaratorId]]))
@@ -105,12 +104,12 @@ Following are some invariants---essentially, informal lemmas---about the impleme
 
 @subsection[#:tag "syntactic_context"]{Syntactic Contexts}
 
-The internal module @schememodname/this-package[private/syntactic-context]
+The internal module @schememodname[c/private/syntactic-context]
 @;schememodname["private/syntactic-context.ss"]
 defines structures that are used internally
 to maintain information about parsing and lexing state. It could be accessed via
 
-@defmodule/this-package[private/syntactic-context]
+@defmodule[c/private/syntactic-context]
 
 but generally shouldn't be used.
 

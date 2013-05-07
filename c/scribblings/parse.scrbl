@@ -4,21 +4,18 @@
          scribble/eval
          scribble/basic
          scribblings/icons
-         planet/scribble
          racket/list
-         "abnf.rkt"
-         "utils.rkt"]
+         scribble/abnf
+	 "utils.rkt"]
 
 @require[(for-label racket/base
                     racket/contract
                     racket/include
-                    parser-tools/lex
-                    (this-package-in ast)
-                    (this-package-in parse))]
+                    parser-tools/lex c/ast c/parse)]
 
 @title[#:tag "parsing"]{Parsing and Reading C}
 
-@defmodule/this-package[parse]
+@defmodule[c/parse]
 
 Each of the parsing operations takes three optional keyword arguments. The @scheme[#:typedef]
 argument takes a list of type names to bind as though by @tt{typedef} in the parser's initial
@@ -135,7 +132,7 @@ code from an external file:
 
 @schemeblock[(require scheme/include
                       (for-syntax scheme/base)
-                      (for-syntax #, @schememodname/this-package[parse]))
+                      (for-syntax #, @schememodname[c/parse]))
              @code:comment{ ...}
              (define fnord.h
                (include/reader

@@ -7,8 +7,7 @@
          "utils.rkt"]
 
 @require[(for-label racket/base
-                    racket/contract
-                    (this-package-in eval))]
+                    racket/contract c/eval)]
 
 @title[#:tag "eval"]{Evaluation}
 
@@ -16,7 +15,7 @@ This library provides utilities for building and runnign C programs with
 a system-installed C compiler. Currently the only supported compiler is
 @link["http://gcc.gnu.org"]{GCC}.
 
-@defmodule/this-package[eval]
+@defmodule[c/eval]
 
 @section[#:tag "processes"]{External Processes}
 

@@ -1,7 +1,7 @@
 #lang at-exp racket/base
 
-(require (prefix-in set: (planet dherman/set:3/set))
-         (planet dherman/io:1:9/io)
+(require (rename-in data/set [empty set:empty])
+         io
          racket/system
          racket/file
          racket/list
@@ -373,7 +373,7 @@
              (do
                (size <- (pop))
                (return (internal:layout:ref size name)))
-             (set:add name set:empty))]
+             (set-add name set:empty))]
     [(struct type:struct (_ #f fields))
      (let-values ([(queries compile-fields deps) (precompile-map (precompile-struct-field #f) fields)])
        (values (cons (query:sizeof `(struct ,@fields)) queries)
@@ -564,7 +564,7 @@
                 (bind c1 (lambda (x)
                            (bind c2 (lambda (y)
                                       (return (cons x y))))))
-                (set:union deps1 deps2)))))
+                (set-union deps1 deps2)))))
 
 ;; =============================================================================
 ;; SYSTEM HEADER COMPILER

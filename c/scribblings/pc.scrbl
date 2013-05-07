@@ -6,16 +6,12 @@
          planet/scribble
          "utils.rkt"]
 
-@require[(for-label racket/base
-                    racket/contract
-                    (this-package-in header)
-                    (this-package-in eval)
-                    (this-package-in ast)
-                    (this-package-in pc))]
+@require[(for-label (except-in racket/base struct)
+                    racket/contract c/header c/eval c/ast c/pc)]
 
 @title[#:tag "pc"]{Parenthetical C}
 
-@defmodule/this-package[pc]
+@defmodule[c/pc]
 
 For now, this library only provides a few convenience forms for constructing AST nodes.
 Eventually I intend to create a ``Parenthetical C'' language with an S-Expression-based

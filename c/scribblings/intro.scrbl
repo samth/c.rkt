@@ -3,13 +3,12 @@
 @require[scribble/manual
          scribble/eval
          scribble/basic
-         planet/scribble
-         "abnf.rkt"
+	 scribble/abnf
          "utils.rkt"]
 
-@require[(for-label racket/base
-                    (only-in scribblings/foreign/unsafe-foreign ptr-ref ptr-set!)
-                    (this-package-in main))]
+@require[(for-label (except-in racket/base struct)
+                    (only-in ffi/unsafe ptr-ref ptr-set!)
+                    c)]
 
 @title[#:tag "intro"]{C Metaprogramming Utilities}
 
@@ -19,7 +18,7 @@ This package provides utilities for manipulating C programs.
 
 The easiest way to get started using the C metaprogramming utilities is with the main module:
 
-@defmodule/this-package[]
+@defmodule[c]
 
 This module provides everything in the entire package. Subsequent sections of this
 manual describe the functionality of the individual libraries included, which can also be

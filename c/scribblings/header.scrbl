@@ -3,18 +3,13 @@
 @require[scribble/manual
          scribble/eval
          scribble/basic
-         planet/scribble
          "utils.rkt"]
 
-@require[(for-label racket/base
+@require[(for-label (except-in racket/base struct)
                     racket/contract
                     racket/include
-                    (only-in scribblings/foreign/unsafe-foreign ptr-ref ptr-set!)
-                    (this-package-in header)
-                    (this-package-in eval)
-                    (this-package-in parse)
-                    (this-package-in ast)
-                    (this-package-in pc))]
+                    (only-in ffi/unsafe ptr-ref ptr-set!)
+		    c/header c/eval c/parse c/ast c/pc)]
 
 @title[#:tag "header"]{Header Compilation}
 
@@ -27,7 +22,7 @@ Specifically, the foreign library's pointer-manipulation procedures such as
 @scheme[ptr-ref] and @scheme[ptr-set!] can be used to read and write to arbitrary
 addresses, which can be computed using layout information.
 
-@defmodule/this-package[header]
+@defmodule[c/header]
 
 @section[#:tag "headers"]{Headers}
 
