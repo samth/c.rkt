@@ -1,4 +1,4 @@
 #lang setup/infotab
 (define collection 'multi)
-(define deps (list "set" "abnf" "io"))
+(define deps (list "abnf"))
 
