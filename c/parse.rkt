@@ -5,8 +5,7 @@
                      parser-tools/lex)
          (for-syntax "private/parser.rkt")
          (for-syntax "ast.rkt"))
-(require racket/include
-         "private/parser.rkt"
+(require "private/parser.rkt"
          "ast.rkt")
 
 (provide parse-program parse-declaration parse-statement parse-expression parse-type-expression)
