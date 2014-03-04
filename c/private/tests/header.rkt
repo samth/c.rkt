@@ -90,5 +90,6 @@
 (define time
   (compile-header time.h (system-compiler #:include<> '("time.h"))))
 
+;; looks like... this only works on windows?
 (define windows
   (compile-header windows.h (system-compiler #:include<> '("windows.h" "IpTypes.h") gcc)))

@@ -1,13 +1,11 @@
 #lang at-exp racket/base
 
-(require (rename-in data/set [empty set:empty])
-         io
+(require racket/set
          racket/system
          racket/file
          racket/list
          racket/match
          "ast.rkt"
-         "parse.rkt"
          "eval.rkt")
 (require (for-syntax racket/base)
          (for-syntax "private/parser.rkt"))
@@ -356,7 +354,7 @@
     ))
 
 (define (precompile-optional-type type)
-  (if type (precompile-type type) (values null (return #f) set:empty)))
+  (if type (precompile-type type) (values null (return #f) (set))))
 
 (define (precompile-type type)
   (match type
@@ -367,13 +365,13 @@
              (do
                (size <- (pop))
                (return (internal:layout:primitive size name)))
-             set:empty)]
+             (set))]
     [(struct type:ref (_ (struct id:var (_ name))))
      (values (list (query:sizeof name))
              (do
                (size <- (pop))
                (return (internal:layout:ref size name)))
-             (set-add name set:empty))]
+             (set-add name (set)))]
     [(struct type:struct (_ #f fields))
      (let-values ([(queries compile-fields deps) (precompile-map (precompile-struct-field #f) fields)])
        (values (cons (query:sizeof `(struct ,@fields)) queries)
@@ -387,7 +385,7 @@
              (do
                (size <- (pop))
                (return (internal:layout:struct size tag #f)))
-             set:empty)]
+             (set))]
     [(struct type:struct (_ (struct id:label (_ tag)) fields))
      (let-values ([(queries compile-fields deps) (precompile-map (precompile-struct-field tag) fields)])
        (values (cons (query:sizeof `(struct ,tag)) queries)
@@ -403,7 +401,7 @@
              (do
                (size <- (pop))
                (return (internal:layout:union size tag #f)))
-             set:empty)]
+             (set))]
     [(struct type:union (_ #f fields))
      (let-values ([(queries compile-fields deps) (precompile-map precompile-union-field fields)])
        (values (cons (query:sizeof `(struct ,@fields)) queries)
@@ -455,7 +453,7 @@
              (do
                (size <- (pop))
                (return (internal:layout:union size tag #f)))
-             set:empty)]
+             (set))]
     [(struct type:union (tag fields))
      (let-values ([(queries compile-fields deps) (precompile-map precompile-union-field fields)])
        (values (cons (query:sizeof `(union ,tag)) queries)
@@ -557,7 +555,7 @@
 ;; (precompilation x y) * (listof x) -> (precompilation (listof x) (listof y))
 (define (precompile-map f ls)
   (if (null? ls)
-      (values null (return null) set:empty)
+      (values null (return null) (set))
       (let-values ([(queries1 c1 deps1) (f (car ls))]
                    [(queries2 c2 deps2) (precompile-map f (cdr ls))])
         (values (append queries1 queries2)

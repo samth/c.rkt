@@ -1,7 +1,6 @@
 #lang racket/base
 
 (require racket/match
-         racket/path
          parser-tools/lex)
 (require (for-syntax racket/base))
 
