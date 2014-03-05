@@ -60,13 +60,13 @@
 
 ;; src src ... -> src
 (define (src-range src . srcs)
-  (src (apply min (src-start-offset src) (map src-start-offset srcs))
-       (apply min (src-start-line src) (map src-start-line srcs))
-       (apply min (src-start-col src) (map src-start-col srcs))
-       (apply max (src-end-offset src) (map src-end-offset srcs))
-       (apply max (src-end-line src) (map src-end-line srcs))
-       (apply max (src-end-col src) (map src-end-col srcs))
-       (src-path src)))
+  (make-src (apply min (src-start-offset src) (map src-start-offset srcs))
+            (apply min (src-start-line src) (map src-start-line srcs))
+            (apply min (src-start-col src) (map src-start-col srcs))
+            (apply max (src-end-offset src) (map src-end-offset srcs))
+            (apply max (src-end-line src) (map src-end-line srcs))
+            (apply max (src-end-col src) (map src-end-col srcs))
+            (src-path src)))
 
 (define (primitive-type-specifier? x)
   (and (memq x '(void char short int long float double signed unsigned _Bool _Complex)) #t))
