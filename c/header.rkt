@@ -371,7 +371,7 @@
              (do
                (size <- (pop))
                (return (internal:layout:ref size name)))
-             (set-add name (set)))]
+             (set-add (set) name))]
     [(struct type:struct (_ #f fields))
      (let-values ([(queries compile-fields deps) (precompile-map (precompile-struct-field #f) fields)])
        (values (cons (query:sizeof `(struct ,@fields)) queries)
