@@ -16,7 +16,8 @@
    "int *f(int x, int y);                       // function that returns int pointer"
    "int *(f)(int x, int y);                     // function that returns int pointer"
    "int (*f)(int x, int y);                     // pointer to function"
-   ))
+   "int i[2]={1,2};"
+   "int i[2]=(int[]){1,2};"))
 
 (define programs-with-errors
   (list
