@@ -323,6 +323,12 @@
       (begin (debug '(C parser push enum-context))
              (push-context! ps 'enum))])
 
+    (!PushInitializerListContext
+     [()
+      (begin (debug '(C parser push initializer-list-context))
+             (push-context! ps 'initializer-list))])
+
+
     (!PopContext
      [()
       (begin (debug '(C parser pop context))
@@ -445,10 +451,10 @@
       (expr:postfix (@ 2) $1 (id:op (@ 2 2) '++))]
      [(PostfixExpression --)
       (expr:postfix (@ 2) $1 (id:op (@ 2 2) '--))]
-     [(O_PAREN TypeName C_PAREN O_BRACE InitializerList C_BRACE)
-      (expr:compound (@ 6) $2 $5)]
-     [(O_PAREN TypeName C_PAREN O_BRACE InitializerList COMMA C_BRACE)
-      (expr:compound (@ 7) $2 $5)])
+     [(O_PAREN TypeName C_PAREN !PushInitializerListContext O_BRACE InitializerList C_BRACE !PopContext)
+      (expr:compound (@ 8) $2 $6)]
+     [(O_PAREN TypeName C_PAREN !PushInitializerListContext O_BRACE InitializerList COMMA C_BRACE !PopContext)
+      (expr:compound (@ 9) $2 $6)])
 
     (ArgumentExpressionList
      [(AssignmentExpression) (list $1)]
@@ -1119,10 +1125,10 @@
     (Initializer
      [(AssignmentExpression)
       (init:expr (@ 1) $1)]
-     [(O_BRACE InitializerList C_BRACE)
-      (init:compound (@ 3) $2)]
-     [(O_BRACE InitializerList COMMA C_BRACE)
-      (init:compound (@ 4) $2)])
+     [(!PushInitializerListContext O_BRACE InitializerList C_BRACE !PopContext)
+      (init:compound (@ 5) $3)]
+     [(!PushInitializerListContext O_BRACE InitializerList COMMA C_BRACE !PopContext)
+      (init:compound (@ 6) $3)])
 
     ;; (listof 
     (InitializerList
