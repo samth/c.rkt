@@ -11,7 +11,7 @@
 
 @title[#:tag "eval"]{Evaluation}
 
-This library provides utilities for building and runnign C programs with
+This library provides utilities for building and running C programs with
 a system-installed C compiler. Currently the only supported compiler is
 @link["http://gcc.gnu.org"]{GCC}.
 
