@@ -3,7 +3,7 @@
 @require[scribble/manual
          scribble/basic]
 
-@title[#:tag "top"]{@bold{C} Metaprogramming Utilities}
+@title[#:tag "top"]{C Metaprogramming Utilities}
 
 by @author+email["Dave Herman" "dherman@ccs.neu.edu"]
 
